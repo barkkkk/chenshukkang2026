@@ -1,4 +1,4 @@
-# Way to solve the led blinking when pushing the button
+# Way to solve the led change blinking when pushing the button
 ## 1.To solve the led blinking without using delay function
 Recording the tick_last and tick_now;
 
