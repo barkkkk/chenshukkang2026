@@ -44,9 +44,10 @@
 
 /* USER CODE BEGIN PV */
 uint32_t ticks_last = 0;
-float filter_states = 0.2;
-float filter_state_last = 0;
+float state_last = 0;
 uint32_t count =0;
+float state_now;
+bool led; //0g,1r
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
