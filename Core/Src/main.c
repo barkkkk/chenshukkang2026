@@ -44,7 +44,6 @@
 
 /* USER CODE BEGIN PV */
 uint32_t ticks_last = 0;
-float state;
 float filter_states = 0.2;
 float filter_state;
 uint32_t count =0;
@@ -99,9 +98,10 @@ int main(void)
   while (1)
   {
     uint32_t ticks_now = HAL_GetTick();
-    state = HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
-    if (state == 1) {
-      count = count + 1;
+    float filter_state_now = filter_states * HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin) + (1 - filter_states) * HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin);
+    if (filter_state_now - filter_state_last == GPIO_PIN_RESET) {
+      count++;
+      filter_state_last = filter_state_now;
     }
     filter_state = filter_states * state + (1 - filter_states) * state;
     // if (filter_state == GPIO_PIN_SET) {
