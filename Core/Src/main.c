@@ -45,7 +45,7 @@
 /* USER CODE BEGIN PV */
 uint32_t ticks_last = 0;
 float filter_states = 0.2;
-float filter_state;
+float filter_state_last = 0;
 uint32_t count =0;
 /* USER CODE END PV */
 
@@ -103,7 +103,6 @@ int main(void)
       count++;
       filter_state_last = filter_state_now;
     }
-    filter_state = filter_states * state + (1 - filter_states) * state;
     // if (filter_state == GPIO_PIN_SET) {
     //   if (ticks_now - ticks_last >= 500) {
     //     HAL_GPIO_TogglePin(LEDR_GPIO_Port, LEDR_Pin);
