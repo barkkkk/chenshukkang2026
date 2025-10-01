@@ -19,7 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "gpio.h"
-
+#include "stdbool.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -46,6 +46,8 @@
 uint32_t ticks_last = 0;
 float state_last = 0;
 uint32_t count =0;
+float state_now;
+bool led; //0g,1r
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,14 +99,18 @@ int main(void)
   while (1)
   {
     uint32_t ticks_now = HAL_GetTick();
-    float state_now = HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin);
-    if (state_now == state_last) {
+    state_last = state_now;
+    state_now = HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
+    if (state_last == GPIO_PIN_RESET && state_now == GPIO_PIN_SET) {
+      led = !led;
+    }
+
+    if (led ==1) {
       if (ticks_now - ticks_last >= 50) {
         HAL_GPIO_TogglePin(LEDR_GPIO_Port, LEDR_Pin);
         ticks_last = ticks_now;
+        }
       }
-      state_last = state_now;
-    }
     else {
       if (ticks_now - ticks_last >= 50) {
         HAL_GPIO_TogglePin(LEDG_GPIO_Port, LEDG_Pin);

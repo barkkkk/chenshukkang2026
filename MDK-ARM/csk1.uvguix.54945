@@ -3660,9 +3660,9 @@
       </Doc>
       <Doc>
         <Name>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c</Name>
-        <ColumnNumber>0</ColumnNumber>
+        <ColumnNumber>29</ColumnNumber>
         <TopLine>316</TopLine>
-        <CurrentLine>324</CurrentLine>
+        <CurrentLine>338</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
