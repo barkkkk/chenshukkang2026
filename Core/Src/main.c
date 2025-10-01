@@ -19,7 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "gpio.h"
-
+#include "stlbool"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -98,22 +98,24 @@ int main(void)
   while (1)
   {
     uint32_t ticks_now = HAL_GetTick();
-    float filter_state_now = filter_states * HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin) + (1 - filter_states) * HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin);
-    if (filter_state_now - filter_state_last == GPIO_PIN_RESET) {
-      filter_state_last = filter_state_now;
+    state_last = state_now;
+    state_now = HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
+    if (state_last == GPIO_PIN_RESET && state_now == GPIO_PIN_SET) {
+      led = !led;
     }
-    // if (filter_state == GPIO_PIN_SET) {
-    //   if (ticks_now - ticks_last >= 500) {
-    //     HAL_GPIO_TogglePin(LEDR_GPIO_Port, LEDR_Pin);
-    //     ticks_last = ticks_now;
-    //   }
-    // }
-    // else {
-    //   if (ticks_now - ticks_last >= 500) {
-    //     HAL_GPIO_TogglePin(LEDG_GPIO_Port, LEDG_Pin);
-    //     ticks_last = ticks_now;
-    //   }
-    // }
+
+    if (led ==1) {
+      if (ticks_now - ticks_last >= 50) {
+        HAL_GPIO_TogglePin(LEDR_GPIO_Port, LEDR_Pin);
+        ticks_last = ticks_now;
+      }
+    }
+    else {
+      if (ticks_now - ticks_last >= 50) {
+        HAL_GPIO_TogglePin(LEDG_GPIO_Port, LEDG_Pin);
+        ticks_last = ticks_now;
+      }
+    }
 
     }
 
