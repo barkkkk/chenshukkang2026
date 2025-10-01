@@ -18,8 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "tim.h"
 #include "gpio.h"
-#include "stdbool.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -47,7 +48,7 @@ uint32_t ticks_last = 0;
 float state_last = 0;
 uint32_t count =0;
 float state_now;
-bool led; //0g,1r
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,33 +91,46 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-
+  //HAL_TIM_Base_Start(&htim1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    uint32_t ticks_now = HAL_GetTick();
-    state_last = state_now;
-    state_now = HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
-    if (state_last == GPIO_PIN_RESET && state_now == GPIO_PIN_SET) {
-      led = !led;
-    }
 
-    if (led ==1) {
-      if (ticks_now - ticks_last >= 50) {
-        HAL_GPIO_TogglePin(LEDR_GPIO_Port, LEDR_Pin);
-        ticks_last = ticks_now;
-        }
-      }
-    else {
-      if (ticks_now - ticks_last >= 50) {
-        HAL_GPIO_TogglePin(LEDG_GPIO_Port, LEDG_Pin);
-        ticks_last = ticks_now;
-      }
-    }
+    // TIMer
+    // if (__HAL_TIM_GET_COUNTER(&htim1) > __HAL_TIM_GET_AUTORELOAD(&htim1) / 2) {
+    //   HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_SET);
+    // }
+    // else {
+    //   HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_RESET);
+    // }
+
+    // Second test
+    // uint32_t ticks_now = HAL_GetTick();
+    // state_last = state_now;
+    // state_now = HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
+    // if (state_last == GPIO_PIN_RESET && state_now == GPIO_PIN_SET) {
+    //   led = !led;
+    // }
+    //
+    // if (led ==1) {
+    //   if (ticks_now - ticks_last >= 50) {
+    //     HAL_GPIO_TogglePin(LEDR_GPIO_Port, LEDR_Pin);
+    //     ticks_last = ticks_now;
+    //     }
+    //   }
+    // else {
+    //   if (ticks_now - ticks_last >= 50) {
+    //     HAL_GPIO_TogglePin(LEDG_GPIO_Port, LEDG_Pin);
+    //     ticks_last = ticks_now;
+    //   }
+    // }
+
+    // First test
     // if (state_now - state_last == GPIO_PIN_RESET) {
     //   state_last = state_now;
     // }
