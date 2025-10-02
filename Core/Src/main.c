@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -48,6 +49,8 @@ uint32_t ticks_last = 0;
 float state_last = 0;
 uint32_t count =0;
 float state_now;
+uint32_t count1 = 0;
+uint32_t t;
 
 /* USER CODE END PV */
 
@@ -92,7 +95,11 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM1_Init();
+  MX_UART7_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim1);
+  HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
+  uint8_t tx_msg[] = "RoboMaster";
   //HAL_TIM_Base_Start(&htim1);
   /* USER CODE END 2 */
 
@@ -100,6 +107,21 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    //UART_1
+    HAL_UART_Transmit(&huart7,tx_msg,10,1000);
+    HAL_Delay(1000);
+    //PWM && IWDG
+    // uint32_t arr_value = __HAL_TIM_GET_AUTORELOAD(&htim1) +1;
+    // uint32_t brightness = arr_value * sinf(4 * HAL_GetTick() / 1000.f) -1;
+    // __HAL_TIM_SetCompare(&htim1,TIM_CHANNEL_2,brightness);
+    //
+    // if (HAL_GPIO_ReadPin(KEY_GPIO_Port,KEY_Pin) == GPIO_PIN_SET) {
+    //   HAL_IWDG_Refresh(&hiwdg);
+    // }
+    // }
+
+
+
 
     // TIMer
     // if (__HAL_TIM_GET_COUNTER(&htim1) > __HAL_TIM_GET_AUTORELOAD(&htim1) / 2) {
@@ -172,12 +194,11 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 6;
   RCC_OscInitStruct.PLL.PLLN = 180;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;

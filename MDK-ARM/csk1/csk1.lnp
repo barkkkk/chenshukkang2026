@@ -1,8 +1,10 @@
 --cpu=Cortex-M4.fp.sp
 "csk1\startup_stm32f427xx.o"
+"csk1\callback1.o"
 "csk1\main.o"
 "csk1\gpio.o"
 "csk1\tim.o"
+"csk1\usart.o"
 "csk1\stm32f4xx_it.o"
 "csk1\stm32f4xx_hal_msp.o"
 "csk1\stm32f4xx_hal_tim.o"
@@ -20,6 +22,7 @@
 "csk1\stm32f4xx_hal_cortex.o"
 "csk1\stm32f4xx_hal.o"
 "csk1\stm32f4xx_hal_exti.o"
+"csk1\stm32f4xx_hal_uart.o"
 "csk1\system_stm32f4xx.o"
 --library_type=microlib --strict --scatter "csk1\csk1.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
