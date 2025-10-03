@@ -587,6 +587,11 @@
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
             </File>
+            <File>
+              <FileName>M3508_Motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\Src\M3508_Motor.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

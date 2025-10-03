@@ -8,6 +8,7 @@
 "csk1\usart.o"
 "csk1\stm32f4xx_it.o"
 "csk1\stm32f4xx_hal_msp.o"
+"csk1\m3508_motor.o"
 "csk1\stm32f4xx_hal_can.o"
 "csk1\stm32f4xx_hal_rcc.o"
 "csk1\stm32f4xx_hal_rcc_ex.o"
